@@ -1,0 +1,26 @@
+h1.titulo{
+  text-align: center;
+}
+body p{
+    font-family:sans-serif;
+}
+.importante#primer-parrafo{
+    background-color: #cee;
+}
+p.importante#primer-parrafo em {
+    
+    color:#e33;  
+}
+a{
+    outline: 1px solid #333
+}
+p.fuente.parrafo {
+    opacity: 100% !important;
+}
+html body p.fuente.parrafo{
+    color: #000 !important;
+}
+span.complicado{
+   color: #c62 !important;
+
+}
