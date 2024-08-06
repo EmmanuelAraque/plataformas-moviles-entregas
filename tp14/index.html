@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tablero de Puntos - DOM y JavaScript</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        .hr {
+            border-top: 2px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-1 my-sm-2 my-md-4 my-lg-5">
+        <h1>Tablero de Puntos</h1>
+        <div class="card">
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-5">
+                        <span id="localScore" class="display-1">0</span>
+                        <p class="m-0">Local</p>
+                    </div>
+                    <div class="col-2">
+                        <span class="display-1">:</span>
+                    </div>
+                    <div class="col-5">
+                        <span id="visitorScore" class="display-1">0</span>
+                        <p class="m-0">Visitante</p>
+                    </div>
+                </div>
+
+                <hr class="hr">
+
+                <h2>Actualizar Contador</h2>
+                <div class="row">
+                    <div class="col-12 col-sm-3 my-1">
+                        <button id="localIncrease" class="btn d-block w-100 btn-success">
+                            + Punto Local
+                        </button>
+                    </div>
+                    <div class="col-12 col-sm-3 my-1">
+                        <button id="localDecrease" class="btn d-block w-100 btn-warning">
+                            - Punto Local
+                        </button>
+                    </div>
+                    <div class="col-12 col-sm-3 my-1">
+                        <button id="visitorIncrease" class="btn d-block w-100 btn-success">
+                            + Punto Visitante
+                        </button>
+                    </div>
+                    <div class="col-12 col-sm-3 my-1">
+                        <button id="visitorDecrease" class="btn d-block w-100 btn-warning">
+                            - Punto Visitante
+                        </button>
+                    </div>
+                    <div class="col-12 col-sm-6 my-1">
+                        <button id="resetButton" class="btn d-block w-100 btn-danger">
+                            Reinicio
+                        </button>
+                    </div>
+                    <div class="col-12 my-1">
+                        <button id="invertButton" class="btn d-block w-100 btn-info">
+                            Invertir Puntajes
+                        </button>
+                    </div>
+                    <div class="col-12 my-1">
+                        <button id="endMatchButton" class="btn d-block w-100 btn-secondary">
+                            Finalizar Partido
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let localScore = 0;
+            let visitorScore = 0;
+
+            const localScoreSpan = document.getElementById('localScore');
+            const visitorScoreSpan = document.getElementById('visitorScore');
+
+            // Botones de puntaje
+            const localIncreaseButton = document.getElementById('localIncrease');
+            const localDecreaseButton = document.getElementById('localDecrease');
+            const visitorIncreaseButton = document.getElementById('visitorIncrease');
+            const visitorDecreaseButton = document.getElementById('visitorDecrease');
+
+            function updateScore() {
+                localScoreSpan.textContent = localScore;
+                visitorScoreSpan.textContent = visitorScore;
+            }
+
+            document.getElementById('localIncrease').addEventListener('click', function() {
+                if (!localIncreaseButton.disabled) {
+                    localScore++;
+                    updateScore();
+                }
+            });
+
+            document.getElementById('localDecrease').addEventListener('click', function() {
+                if (!localDecreaseButton.disabled) {
+                    localScore = Math.max(0, localScore - 1); // Previene que el puntaje sea negativo
+                    updateScore();
+                }
+            });
+
+            document.getElementById('visitorIncrease').addEventListener('click', function() {
+                if (!visitorIncreaseButton.disabled) {
+                    visitorScore++;
+                    updateScore();
+                }
+            });
+
+            document.getElementById('visitorDecrease').addEventListener('click', function() {
+                if (!visitorDecreaseButton.disabled) {
+                    visitorScore = Math.max(0, visitorScore - 1); // Previene que el puntaje sea negativo
+                    updateScore();
+                }
+            });
+
+            document.getElementById('resetButton').addEventListener('click', function() {
+                localScore = 0;
+                visitorScore = 0;
+                updateScore();
+                // Habilita los botones si están deshabilitados
+                localIncreaseButton.disabled = false;
+                localDecreaseButton.disabled = false;
+                visitorIncreaseButton.disabled = false;
+                visitorDecreaseButton.disabled = false;
+            });
+
+            document.getElementById('invertButton').addEventListener('click', function() {
+                // Intercambia los puntajes
+                [localScore, visitorScore] = [visitorScore, localScore];
+                updateScore();
+            });
+
+            document.getElementById('endMatchButton').addEventListener('click', function() {
+                // Deshabilita los botones de puntaje
+                localIncreaseButton.disabled = true;
+                localDecreaseButton.disabled = true;
+                visitorIncreaseButton.disabled = true;
+                visitorDecreaseButton.disabled = true;
+            });
+        });
+    </script>
+</body>
+</html>
